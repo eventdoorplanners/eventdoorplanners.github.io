@@ -178,6 +178,110 @@
       .nav-links, .nav-divider, .nav-cta { display: none; }
       .hamburger { display: flex; }
     }
+
+    /* SECTION LAYOUT */
+      .section {
+        padding: 100px 48px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      
+      .section-header {
+        margin-bottom: 60px;
+        max-width: 700px;
+      }
+      
+      .section-tag {
+        color: var(--gold);
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 3px;
+        display: block;
+        margin-bottom: 15px;
+      }
+      
+      .section-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        margin-bottom: 20px;
+        line-height: 1.1;
+      }
+      
+      .section-title em {
+        font-style: italic;
+        font-weight: 300;
+        color: var(--gold);
+      }
+      
+      /* SERVICES GRID */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1px; /* Creates a thin line effect between boxes */
+        background: rgba(201, 168, 76, 0.1); /* Color of the grid lines */
+        border: 1px solid rgba(201, 168, 76, 0.1);
+      }
+      
+      .service-item {
+        background: var(--black);
+        padding: 50px 40px;
+        position: relative;
+        transition: background 0.4s ease, transform 0.4s ease;
+        overflow: hidden;
+      }
+      
+      /* Brighten effect on hover */
+      .service-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+        transform: translateY(-5px);
+        z-index: 1;
+      }
+      
+      /* The Animated Gold Line */
+      .service-item::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: var(--gold);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+      
+      .service-item:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+      
+      /* Internal Content */
+      .service-icon {
+        font-size: 2.5rem;
+        margin-bottom: 25px;
+        display: block;
+      }
+      
+      .service-name {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.6rem;
+        color: var(--white);
+        margin-bottom: 15px;
+        letter-spacing: 1px;
+      }
+      
+      .service-item .service-desc {
+        font-size: 0.9rem;
+        line-height: 1.8;
+        color: rgba(245, 242, 237, 0.7);
+      }
+      
+      /* MOBILE ADJUSTMENTS */
+      @media (max-width: 768px) {
+        .section { padding: 60px 24px; }
+        .services-grid { grid-template-columns: 1fr; }
+      }
   </style>
 </head>
 <body>
@@ -226,45 +330,51 @@
     </section>
   </div>
 
-    <div class="section">
-    <div class="section-header reveal">
-      <span class="section-tag">✦ What We Do</span>
-      <h2 class="section-title">Full-Spectrum <em>Event Services</em></h2>
-      <p class="section-desc">From concept to closure, our team handles every element so you can simply enjoy the moment.</p>
+<div class="section">
+  <div class="section-header reveal">
+    <span class="section-tag">✦ What We Do</span>
+    <h2 class="section-title">Full-Spectrum <em>Event Services</em></h2>
+    <p class="section-desc">From concept to closure, our team handles every element so you can simply enjoy the moment.</p>
+  </div>
+
+  <div class="services-grid reveal">
+    <div class="service-item">
+      <span class="service-icon">💍</span>
+      <div class="service-name">Weddings & Celebrations</div>
+      <p class="service-desc">Crafting dreamy ceremonies, receptions, and cultural events tailored to your heritage and aesthetic.</p>
     </div>
-    <div class="services-grid reveal">
-      <div class="service-item">
-        <span class="service-icon">💍</span>
-        <div class="service-name">Weddings & Celebrations</div>
-        <p class="service-desc">Crafting dreamy ceremonies, receptions, and cultural events tailored to your heritage and aesthetic.</p>
-      </div>
-      <div class="service-item">
-        <span class="service-icon">🎯</span>
-        <div class="service-name">Corporate Events</div>
-        <p class="service-desc">Conferences, product launches, team offsites, and galas that project your brand's best identity.</p>
-      </div>
-      <div class="service-item">
-        <span class="service-icon">🎪</span>
-        <div class="service-name">Social Gatherings</div>
-        <p class="service-desc">Birthday bashes, anniversary dinners, reunions — every personal moment deserves a grand stage.</p>
-      </div>
-      <div class="service-item">
-        <span class="service-icon">🎭</span>
-        <div class="service-name">Live Entertainment</div>
-        <p class="service-desc">Artist bookings, stage design, sound, lighting — complete production management from start to finish.</p>
-      </div>
-      <div class="service-item">
-        <span class="service-icon">🍽️</span>
-        <div class="service-name">Catering & Cuisine</div>
-        <p class="service-desc">Partnered with award-winning chefs to deliver extraordinary menus tailored to every palate.</p>
-      </div>
-      <div class="service-item">
-        <span class="service-icon">📸</span>
-        <div class="service-name">Photography & Film</div>
-        <p class="service-desc">Documentary-style storytelling through photos and cinematic films you'll treasure forever.</p>
-      </div>
+
+    <div class="service-item">
+      <span class="service-icon">🎯</span>
+      <div class="service-name">Corporate Events</div>
+      <p class="service-desc">Conferences, product launches, team offsites, and galas that project your brand's best identity.</p>
+    </div>
+
+    <div class="service-item">
+      <span class="service-icon">🎪</span>
+      <div class="service-name">Social Gatherings</div>
+      <p class="service-desc">Birthday bashes, anniversary dinners, reunions — every personal moment deserves a grand stage.</p>
+    </div>
+
+    <div class="service-item">
+      <span class="service-icon">🎭</span>
+      <div class="service-name">Live Entertainment</div>
+      <p class="service-desc">Artist bookings, stage design, sound, lighting — complete production management from start to finish.</p>
+    </div>
+
+    <div class="service-item">
+      <span class="service-icon">🍽️</span>
+      <div class="service-name">Catering & Cuisine</div>
+      <p class="service-desc">Partnered with award-winning chefs to deliver extraordinary menus tailored to every palate.</p>
+    </div>
+
+    <div class="service-item">
+      <span class="service-icon">📸</span>
+      <div class="service-name">Photography & Film</div>
+      <p class="service-desc">Documentary-style storytelling through photos and cinematic films you'll treasure forever.</p>
     </div>
   </div>
+</div>
 
   <script>
     const navbar = document.getElementById('navbar');
@@ -333,6 +443,24 @@
         document.body.classList.remove('cursor-grow');
       });
     });
+      
+          const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      document.querySelectorAll('.reveal').forEach(el => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(30px)";
+        el.style.transition = "all 1s ease-out";
+        observer.observe(el);
+      });
+
+// Add this to your CSS for the active state
+// .reveal.active { opacity: 1 !important; transform: translateY(0) !important; }
   </script>
 </body>
 </html>
