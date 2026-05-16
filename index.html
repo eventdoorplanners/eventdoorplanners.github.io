@@ -14,8 +14,8 @@
       --white: #F5F2ED;
       --nav-height: 80px;
     }
-
-        /* CUSTOM CURSOR */
+     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    /* CUSTOM CURSOR */
     * { cursor: none !important; }
     #cursor {
       position: fixed; width: 12px; height: 12px;
@@ -35,6 +35,7 @@
     }
     .cursor-grow #cursor { width: 20px; height: 20px; }
     .cursor-grow #cursor-ring { width: 60px; height: 60px; opacity: 1; }
+    
     html { scroll-behavior: smooth; }
     body {
       background: var(--black);
