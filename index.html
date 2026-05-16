@@ -238,6 +238,16 @@
         overlay.addEventListener('animationend', () => { window.location.href = href; }, { once: true });
       });
     });
+
+    // Add this near your other transition code (around line 170)
+    window.addEventListener('pageshow', (event) => {
+        const overlay = document.getElementById('page-transition');
+  // If the page is loaded from the 'Back' button or cache, clear the overlay
+      if (event.persisted || overlay.classList.contains('slide-in')) {
+        overlay.classList.remove('slide-in');
+        overlay.classList.add('slide-out');
+  }
+});
   </script>
 </body>
 </html>
