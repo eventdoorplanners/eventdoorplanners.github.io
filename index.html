@@ -1,131 +1,463 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Eventdoor Planners - Home</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        /* Golden & White Minimalist Theme */
-        :root {
-            --gold: #D4AF37; /* Classic Metallic Gold */
-            --soft-white: #ffffff;
-            --off-white: #fcfcfc;
-            --text-dark: #2d2d2d;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Doors — Event Planners, Lucknow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            margin: 0;
-            padding-top: 80px;
-            background-color: var(--soft-white);
-            font-family: 'Montserrat', sans-serif; /* Clean minimalist font */
-        }
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E2C47A;
+      --gold-dim: rgba(201, 168, 76, 0.15);
+      --black: #0A0A0A;
+      --off-black: #111111;
+      --white: #F5F2ED;
+      --nav-height: 80px;
+    }
 
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background-color: rgba(255, 255, 255, 0.98);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 60px;
-            box-sizing: border-box;
-            border-bottom: 1px solid #f0f0f0;
-            z-index: 1000;
-        }
+    html { scroll-behavior: smooth; }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        .logo {
-            height: 50px;
-            width: auto;
-            /* Filter can subtly adjust the logo's appearance if needed */
-        }
+    /* ── PAGE TRANSITION OVERLAY ── */
+    #page-transition {
+      position: fixed;
+      inset: 0;
+      background: var(--gold);
+      z-index: 9999;
+      pointer-events: none;
+      transform: translateX(-100%);
+    }
 
-        .business-name {
-            font-weight: 300; /* Light weight for minimalism */
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--gold);
-        }
+    #page-transition.slide-in {
+      animation: slideIn 0.4s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 40px;
-            margin: 0;
-            padding: 0;
-        }
+    #page-transition.slide-out {
+      animation: slideOut 0.4s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    }
 
-        nav a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-size: 0.85rem;
-            font-weight: 400;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            position: relative;
-        }
+    @keyframes slideIn {
+      from { transform: translateX(-100%); }
+      to   { transform: translateX(0%); }
+    }
 
-        /* Gold underline effect on hover */
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--gold);
-            transition: width 0.3s ease;
-        }
+    @keyframes slideOut {
+      from { transform: translateX(0%); }
+      to   { transform: translateX(100%); }
+    }
 
-        nav a:hover {
-            color: var(--gold);
-        }
+    /* Page content fade in */
+    .page-content {
+      animation: fadeUp 0.5s ease 0.2s both;
+    }
 
-        nav a:hover::after {
-            width: 100%;
-        }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-        /* Special styling for the CTA link */
-        .plan-event-btn {
-            border: 1px solid var(--gold);
-            padding: 10px 20px;
-            border-radius: 2px;
-            color: var(--gold) !important;
-        }
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-height);
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      transition: background 0.3s ease;
+    }
 
-        .plan-event-btn:hover {
-            background-color: var(--gold);
-            color: white !important;
-        }
-    </style>
+    nav.scrolled {
+      background: rgba(10, 10, 10, 0.98);
+      border-bottom-color: rgba(201, 168, 76, 0.35);
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .logo img {
+      height: 48px;
+      width: 48px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      border-radius: 4px;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .logo-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+
+    .logo-tagline {
+      font-size: 9px;
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    /* Nav links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245, 242, 237, 0.65);
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.25s ease;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--gold); }
+    .nav-links a.active::after { width: 100%; background: var(--gold); }
+
+    /* CTA button */
+    .nav-cta {
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      padding: 10px 22px;
+      border-radius: 2px;
+      transition: background 0.25s ease, transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    .nav-divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(201, 168, 76, 0.3);
+    }
+
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--white);
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ── MOBILE DROPDOWN ── */
+    .mobile-menu {
+      position: fixed;
+      top: var(--nav-height);
+      left: 0; right: 0;
+      background: rgba(10, 10, 10, 0.98);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+      z-index: 999;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.45s cubic-bezier(0.76, 0, 0.24, 1);
+    }
+
+    .mobile-menu.open {
+      max-height: 420px;
+    }
+
+    .mobile-menu-inner {
+      padding: 8px 24px 28px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile-menu a {
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245, 242, 237, 0.65);
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+      transition: color 0.2s, padding-left 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mobile-menu a.active { color: var(--gold); }
+    .mobile-menu a:hover { color: var(--gold); padding-left: 6px; }
+
+    .mob-arrow { opacity: 0.35; font-size: 12px; }
+
+    .mob-cta {
+      margin-top: 18px;
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--black) !important;
+      background: var(--gold);
+      padding: 14px 22px;
+      border-radius: 2px;
+      border-bottom: none !important;
+      transition: background 0.25s;
+    }
+
+    .mob-cta:hover { background: var(--gold-light); padding-left: 0 !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: calc(var(--nav-height) + 60px) 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(201,168,76,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 8vw, 100px);
+      font-weight: 300;
+      line-height: 1.0;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 28px;
+    }
+
+    .hero-title em { font-style: italic; color: var(--gold); }
+
+    .hero-sub {
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: rgba(245,242,237,0.5);
+      margin-bottom: 48px;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      padding: 16px 40px;
+      border-radius: 2px;
+      transition: all 0.25s ease;
+    }
+
+    .hero-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+    .gold-line {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 32px;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-links, .nav-divider, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <div class="brand">
-        <img src="Logo.jpeg" alt="Eventdoor Planners Logo" class="logo">
-        <span class="business-name">Eventdoor Planners</span>
+  <!-- Gold slide transition overlay -->
+  <div id="page-transition"></div>
+
+  <!-- ── NAVBAR ── -->
+  <nav id="navbar">
+    <a href="index.html" class="logo nav-link">
+      <img src="Logo.jpeg" alt="Event Doors logo">
+      <div class="logo-text">
+        <span class="logo-name">Event Doors</span>
+        <span class="logo-tagline">Event Planners · Lucknow</span>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link active">Home</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+
+    <div class="nav-divider"></div>
+    <a href="contact.html" class="nav-cta nav-link">Plan Your Event</a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ── MOBILE DROPDOWN ── -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-inner">
+      <a href="index.html" class="nav-link active">Home <span class="mob-arrow">→</span></a>
+      <a href="about.html" class="nav-link">About <span class="mob-arrow">→</span></a>
+      <a href="pricing.html" class="nav-link">Pricing <span class="mob-arrow">→</span></a>
+      <a href="contact.html" class="nav-link">Contact <span class="mob-arrow">→</span></a>
+      <a href="contact.html" class="mob-cta nav-link">Plan Your Event</a>
     </div>
-    
-    <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#contact" class="plan-event-btn">Plan Event</a></li>
-        </ul>
-    </nav>
-</header>
+  </div>
+
+  <!-- ── PAGE CONTENT ── -->
+  <div class="page-content">
+    <section class="hero">
+      <p class="hero-eyebrow">Lucknow's Premier Event Planners</p>
+      <div class="gold-line"></div>
+      <h1 class="hero-title">Every door opens<br>to an <em>unforgettable</em><br>event</h1>
+      <p class="hero-sub">Weddings · Corporate Events · Private Celebrations</p>
+      <a href="contact.html" class="hero-btn nav-link">Start Planning</a>
+    </section>
+  </div>
+
+  <script>
+    // ── Scroll effect on navbar
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // ── Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+
+    // ── Set active link for current page
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('a.nav-link').forEach(link => {
+      const href = (link.getAttribute('href') || '').split('/').pop() || 'index.html';
+      if (href === currentPage) link.classList.add('active');
+      else link.classList.remove('active');
+    });
+
+    // ── Page slide transition
+    const overlay = document.getElementById('page-transition');
+
+    // On page load: slide overlay out (arriving)
+    overlay.classList.add('slide-out');
+    overlay.addEventListener('animationend', () => {
+      overlay.classList.remove('slide-out');
+    }, { once: true });
+
+    // On link click: slide overlay in, then navigate
+    document.querySelectorAll('a.nav-link').forEach(link => {
+      link.addEventListener('click', e => {
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
+
+        const dest = href.split('/').pop() || 'index.html';
+        if (dest === currentPage) return;
+
+        e.preventDefault();
+
+        // Close mobile menu
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+
+        // Animate in, then go
+        overlay.classList.add('slide-in');
+        overlay.addEventListener('animationend', () => {
+          window.location.href = href;
+        }, { once: true });
+      });
+    });
+  </script>
 
 </body>
 </html>
