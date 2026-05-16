@@ -180,108 +180,113 @@
     }
 
     /* SECTION LAYOUT */
-      .section {
-        padding: 100px 48px;
-        max-width: 1400px;
-        margin: 0 auto;
-      }
+    .section {
+      padding: 100px 48px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
       
-      .section-header {
-        margin-bottom: 60px;
-        max-width: 700px;
-      }
+    .section-header {
+      margin-bottom: 60px;
+      max-width: 700px;
+    }
       
-      .section-tag {
-        color: var(--gold);
-        text-transform: uppercase;
-        font-size: 0.8rem;
-        letter-spacing: 3px;
-        display: block;
-        margin-bottom: 15px;
-      }
+    .section-tag {
+      color: var(--gold);
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      display: block;
+      margin-bottom: 15px;
+    }
       
-      .section-title {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(2.5rem, 5vw, 3.5rem);
-        margin-bottom: 20px;
-        line-height: 1.1;
-      }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
       
-      .section-title em {
-        font-style: italic;
-        font-weight: 300;
-        color: var(--gold);
-      }
+    .section-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gold);
+    }
       
       /* SERVICES GRID */
-      .services-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1px; /* Creates a thin line effect between boxes */
-        background: rgba(201, 168, 76, 0.1); /* Color of the grid lines */
-        border: 1px solid rgba(201, 168, 76, 0.1);
-      }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1px; /* Creates a thin line effect between boxes */
+      background: rgba(201, 168, 76, 0.1); /* Color of the grid lines */
+      border: 1px solid rgba(201, 168, 76, 0.1);
+    }
       
-      .service-item {
-        background: var(--black);
-        padding: 50px 40px;
-        position: relative;
-        transition: background 0.4s ease, transform 0.4s ease;
-        overflow: hidden;
-      }
+    .service-item {
+      background: var(--black);
+      padding: 50px 40px;
+      position: relative;
+      transition: background 0.4s ease, transform 0.4s ease;
+      overflow: hidden;
+    }
       
       /* Brighten effect on hover */
-      .service-item:hover {
-        background: rgba(255, 255, 255, 0.05);
-        transform: translateY(-5px);
-        z-index: 1;
-      }
+    .service-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-5px);
+      z-index: 1;
+    }
       
       /* The Animated Gold Line */
-      .service-item::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: var(--gold);
-        transform: scaleX(0);
-        transform-origin: right;
-        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-      }
+    .service-item::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
       
-      .service-item:hover::after {
-        transform: scaleX(1);
-        transform-origin: left;
-      }
+    .service-item:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
       
       /* Internal Content */
-      .service-icon {
-        font-size: 2.5rem;
-        margin-bottom: 25px;
-        display: block;
-      }
+    .service-icon {
+      font-size: 2.5rem;
+      margin-bottom: 25px;
+      display: block;
+    }
       
-      .service-name {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.6rem;
-        color: var(--white);
-        margin-bottom: 15px;
-        letter-spacing: 1px;
-      }
+    .service-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      color: var(--white);
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+    }
       
-      .service-item .service-desc {
-        font-size: 0.9rem;
-        line-height: 1.8;
-        color: rgba(245, 242, 237, 0.7);
-      }
+    .service-item .service-desc {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: rgba(245, 242, 237, 0.7);
+    }
+    
+    .reveal.active {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
       
       /* MOBILE ADJUSTMENTS */
-      @media (max-width: 768px) {
-        .section { padding: 60px 24px; }
-        .services-grid { grid-template-columns: 1fr; }
-      }
+    @media (max-width: 768px) {
+      .section { padding: 60px 24px; }
+      .services-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -444,20 +449,29 @@
       });
     });
       
-          const observer = new IntersectionObserver((entries) => {
+
+    // Robust Reveal Animation
+    const revealElements = () => {
+      const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('active');
           }
         });
       }, { threshold: 0.1 });
-      
+  
       document.querySelectorAll('.reveal').forEach(el => {
+        // Initial state
         el.style.opacity = "0";
         el.style.transform = "translateY(30px)";
-        el.style.transition = "all 1s ease-out";
+        el.style.transition = "all 1s cubic-bezier(0.2, 1, 0.3, 1)";
         observer.observe(el);
       });
+    };
+  
+    // Run on load
+    document.addEventListener('DOMContentLoaded', revealElements);
+
 
 // Add this to your CSS for the active state
 // .reveal.active { opacity: 1 !important; transform: translateY(0) !important; }
