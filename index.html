@@ -291,40 +291,78 @@
       /* MOBILE ADJUSTMENTS */
     @media (max-width: 992px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 600px) { .services-grid { grid-template-columns: 1fr; } }
-
-    /* FOOTER */
+    
+    /* FOOTER FIX */
     footer {
-      background: var(--dark); border-top: 1px solid rgba(201,168,76,0.1);
-      padding: 0 48px; display: flex; align-items: center; justify-content: space-between;
-      max-width: 1400px;
-      margin: 0 auto; 
       width: 100%;
-
+      background: var(--black);
+      border-top: 1px solid rgba(201,168,76,0.1);
+      padding: 3rem 0;
+      display: flex;
+      justify-content: center; /* This centers the inner content box */
+      
+      /* Reset any potential reveal transforms that might be shifting it */
+      opacity: 1 !important;
+      transform: none !important;
+      visibility: visible !important;
     }
-    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; color: var(--white); flex: 1;}
-    .footer-logo span { color: var(--gold); font-style: italic; }
-    .footer-copy { font-size: 0.78rem; color: var(--muted); flex: 1;}
-    .footer-links { display: flex; gap: 2rem; flex: 1;}
-    .footer-links a { font-size: 0.78rem; color: var(--muted); text-decoration: none; transition: color 0.3s; }
-    .footer-links a:hover { color: var(--gold); }
-  
-    /* SCROLL REVEAL */
-    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.7s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-        /* MOBILE FOOTER FIX */
+    
+    /* This is the inner container that keeps things from being squished */
+    footer > div, .footer-container {
+      width: 100%;
+      max-width: 1400px; /* Aligns with the rest of your site */
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Pushes Logo to left, Links to right */
+    }
+    
+    /* Forces the three sections to occupy equal space so the middle text is centered */
+    .footer-logo, .footer-copy, .footer-links {
+      flex: 1;
+    }
+    
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--white);
+    }
+    
+    .footer-copy {
+      text-align: center; /* Centers the copyright text in the middle */
+      font-size: 0.78rem;
+      color: rgba(245, 242, 237, 0.5);
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      justify-content: flex-end; /* Keeps links on the far right */
+    }
+    
+    .footer-links a {
+      font-size: 0.78rem;
+      color: rgba(245, 242, 237, 0.5);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: var(--gold);
+    }
+    
+    /* Fix for mobile: Stacks them so they aren't squished on small screens */
     @media (max-width: 768px) {
-      footer {
+      footer > div, .footer-container {
         flex-direction: column;
-        gap: 2rem;
+        gap: 1.5rem;
         text-align: center;
-        padding: 3rem 24px;
       }
       .footer-links {
-        flex-wrap: wrap;
         justify-content: center;
       }
     }
+
   </style>
 </head>
 <body>
