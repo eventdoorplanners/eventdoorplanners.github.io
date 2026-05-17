@@ -199,7 +199,7 @@
       }
       .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
       .form-group textarea { height: 130px; resize: vertical; }
-      .form-group select option { background: var(--dark3); }
+      .form-group select option { background: var(--black); }
       .submit-btn {
         width: 100%; padding: 1rem; background: var(--gold);
         color: var(--dark); border: none; border-radius: 4px;
@@ -278,9 +278,25 @@
       .footer-links a:hover {
         color: var(--gold);
       }
-      
-      /* Fix for mobile: Stacks them so they aren't squished on small screens */
+
+      /* Fix for mobile: Navbar, Contact Grid, and Footer */
       @media (max-width: 768px) {
+        /* Navbar Fixes */
+        nav { padding: 0 24px; height: 70px; }
+        .nav-links, .nav-divider, .nav-cta { display: none; }
+        .hamburger { display: flex; }
+        .logo-name { font-size: 18px; }
+
+        /* Contact Page Fixes */
+        .contact-grid { 
+          grid-template-columns: 1fr; /* Stacks the two halves vertically */
+          padding-top: 70px; 
+        }
+        .contact-left { padding: 3rem 24px 2rem 24px; border-right: none; border-bottom: 1px solid rgba(201,168,76,0.1); }
+        .contact-right { padding: 2rem 24px 4rem 24px; }
+        .form-row { grid-template-columns: 1fr; } /* Stacks First/Last name on phones */
+
+        /* Footer Fixes */
         footer > div, .footer-container {
           flex-direction: column;
           gap: 1.5rem;
@@ -290,6 +306,7 @@
           justify-content: center;
         }
       }
+
     </style>
   </head>
   
@@ -370,15 +387,16 @@
     
         <div class="contact-right">
           <h3>Send Us a Message</h3>
+          <form action="https://formspree.io/f/YOUR_ID_HERE" method="POST" id="contactForm">
           <div id="contactForm">
             <div class="form-row">
               <div class="form-group">
                 <label>First Name</label>
-                <input type="text" placeholder="Priya">
+                <input type="text" placeholder="First Name">
               </div>
               <div class="form-group">
                 <label>Last Name</label>
-                <input type="text" placeholder="Sharma">
+                <input type="text" placeholder="Last Name">
               </div>
             </div>
             <div class="form-group">
@@ -393,7 +411,7 @@
               <label>Event Type</label>
               <select>
                 <option value="">Select event type...</option>
-                <option>Wedding / Sangeet</option>
+                <option>Party</option>
                 <option>Corporate Event</option>
                 <option>Birthday Celebration</option>
                 <option>Gala / Awards Night</option>
@@ -407,6 +425,7 @@
             </div>
             <button class="submit-btn" onclick="submitForm()">Send Message →</button>
           </div>
+          </form>
           <div class="form-success" id="formSuccess">
             <span class="check-big">✦</span>
             <h4>Message Received!</h4>
@@ -427,10 +446,6 @@
       </footer>
     <script>
               // ─── CONTACT FORM ───
-        function submitForm() {
-          document.getElementById('contactForm').style.display = 'none';
-          document.getElementById('formSuccess').style.display = 'block';
-        }
 
           const navbar = document.getElementById('navbar');
           window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); });
