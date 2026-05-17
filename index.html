@@ -298,11 +298,12 @@
       padding: 0 48px; display: flex; align-items: center; justify-content: space-between;
       margin: 0 auto; 
       width: 100%;
+      max-width: 1400px;
     }
-    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; color: var(--white); }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; color: var(--white); flex :1;}
     .footer-logo span { color: var(--gold); font-style: italic; }
-    .footer-copy { font-size: 0.78rem; color: var(--muted); }
-    .footer-links { display: flex; gap: 2rem; }
+    .footer-copy { font-size: 0.78rem; color: var(--muted); flex :1 ;}
+    .footer-links { display: flex; gap: 2rem; flex :1 ;}
     .footer-links a { font-size: 0.78rem; color: var(--muted); text-decoration: none; transition: color 0.3s; }
     .footer-links a:hover { color: var(--gold); }
   
